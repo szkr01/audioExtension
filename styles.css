@@ -1,0 +1,306 @@
+:root {
+    --bg-color: #1a1a1a;
+    --panel-bg: #242424;
+    --section-bg: #2a2a2a;
+    --text-color: #e0e0e0;
+    --text-dim: #888;
+    --primary-color: #ff6b35;
+    --accent-color: #ffa500;
+    --boom-color: #4a9fe8;
+    --disabled-color: #555;
+    --border-color: #3a3a3a;
+    --font-family: 'Segoe UI', 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 320px;
+    min-height: 480px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 12px;
+    font-size: 12px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 12px;
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+h1 {
+    font-size: 16px;
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Controls wrapper */
+.controls-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.controls-wrapper.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Section styling */
+.section {
+    background: var(--section-bg);
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.section-title {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: var(--text-dim);
+    margin: 0;
+    padding: 6px 10px;
+    background: var(--panel-bg);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.boom-section {
+    border-color: var(--boom-color);
+}
+
+.boom-section .section-title {
+    background: linear-gradient(90deg, rgba(74, 159, 232, 0.2), transparent);
+    color: var(--boom-color);
+}
+
+/* Control groups */
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+label {
+    font-size: 11px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+label span {
+    color: var(--text-dim);
+    font-weight: 400;
+    font-family: 'Consolas', monospace;
+}
+
+/* Range sliders */
+input[type=range] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 18px;
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type=range]:focus {
+    outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--border-color), var(--panel-bg));
+    border-radius: 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fff, #ccc);
+    cursor: pointer;
+    -webkit-appearance: none;
+    margin-top: -5px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.6);
+}
+
+input[type=range]:active::-webkit-slider-thumb {
+    background: var(--primary-color);
+}
+
+/* Toggle buttons */
+.toggle-row {
+    display: flex;
+    gap: 8px;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 6px 12px;
+    border: 1px solid var(--border-color);
+    background: var(--panel-bg);
+    color: var(--text-dim);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.toggle-btn:hover {
+    border-color: var(--text-dim);
+}
+
+.toggle-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #fff;
+    box-shadow: 0 0 8px rgba(255, 107, 53, 0.4);
+}
+
+/* Distortion mode buttons */
+.distortion-modes {
+    display: flex;
+    gap: 4px;
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 5px 4px;
+    border: 1px solid var(--border-color);
+    background: var(--panel-bg);
+    color: var(--text-dim);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mode-btn:hover {
+    border-color: var(--text-dim);
+    color: var(--text-color);
+}
+
+.mode-btn.active {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    border-color: var(--accent-color);
+    color: #fff;
+}
+
+/* Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 18px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--border-color);
+    transition: .3s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 2px;
+    bottom: 2px;
+    background-color: #888;
+    transition: .3s;
+}
+
+input:checked+.slider {
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+}
+
+input:checked+.slider:before {
+    transform: translateX(18px);
+    background-color: #fff;
+}
+
+.slider.round {
+    border-radius: 18px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* Footer */
+footer {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 4px;
+}
+
+.secondary-btn {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-dim);
+    padding: 5px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: all 0.2s;
+}
+
+.secondary-btn:hover {
+    border-color: var(--text-dim);
+    color: var(--text-color);
+    background-color: rgba(255, 255, 255, 0.03);
+}

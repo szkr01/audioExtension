@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drum Buss</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Drum Buss</h1>
+            <label class="switch">
+                <input type="checkbox" id="power-switch">
+                <span class="slider round"></span>
+            </label>
+        </header>
+
+        <div class="controls-wrapper" id="controls">
+            <!-- Input Section -->
+            <section class="section">
+                <h2 class="section-title">INPUT</h2>
+                <div class="section-content">
+                    <div class="control-group">
+                        <label for="trim">Trim <span id="trim-val">100%</span></label>
+                        <input type="range" id="trim" min="0" max="100" value="100" step="1">
+                    </div>
+                    <div class="toggle-row">
+                        <button id="comp-toggle" class="toggle-btn active">COMP</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Boom Section -->
+            <section class="section boom-section">
+                <h2 class="section-title">BOOM</h2>
+                <div class="section-content">
+                    <div class="control-group">
+                        <label for="boom">Boom <span id="boom-val">0%</span></label>
+                        <input type="range" id="boom" min="0" max="100" value="0" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="boom-freq">Freq <span id="boom-freq-val">60Hz</span></label>
+                        <input type="range" id="boom-freq" min="30" max="90" value="60" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="decay">Decay <span id="decay-val">50%</span></label>
+                        <input type="range" id="decay" min="0" max="100" value="50" step="1">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Output Section -->
+            <section class="section">
+                <h2 class="section-title">OUTPUT</h2>
+                <div class="section-content">
+                    <div class="control-group">
+                        <label for="dry-wet">Dry/Wet <span id="dry-wet-val">100%</span></label>
+                        <input type="range" id="dry-wet" min="0" max="100" value="100" step="1">
+                    </div>
+                    <div class="control-group">
+                        <label for="output-gain">Gain <span id="output-gain-val">0dB</span></label>
+                        <input type="range" id="output-gain" min="-24" max="12" value="0" step="0.5">
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <button id="reset-btn" class="secondary-btn">Reset</button>
+        </footer>
+    </div>
+    <script src="popup.js"></script>
+</body>
+
+</html>
