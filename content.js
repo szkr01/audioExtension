@@ -61,16 +61,33 @@ class DrumBuss {
         });
     }
 
+    /**
+     * Register media element for later processing.
+     * We don't create the audio processing chain immediately to avoid
+     * blocking playback when AudioContext is suspended (Chrome Autoplay Policy).
+     */
     processMediaElement(element) {
         if (this.mediaElements.has(element)) return;
 
+        // Only register the element, don't create the processing chain yet
+        // The chain will be created when the effect is enabled (user interaction)
+        this.mediaElements.set(element, null);
+
+        // If already enabled, create and connect the chain now
+        if (this.enabled) {
+            this.createAndConnectChain(element);
+        }
+    }
+
+    /**
+     * Create processing chain for an element and connect it.
+     * This should only be called after user interaction (when AudioContext can be resumed).
+     */
+    createAndConnectChain(element) {
         try {
             const chain = this.createProcessingChain(element);
             this.mediaElements.set(element, chain);
-
-            if (this.enabled) {
-                this.connectChain(chain);
-            }
+            this.connectChain(chain);
         } catch (e) {
             console.warn('DrumBuss: Failed to process media element', e);
         }
@@ -316,11 +333,18 @@ class DrumBuss {
             this.audioContext.resume();
         }
 
-        this.mediaElements.forEach((chain) => {
+        this.mediaElements.forEach((chain, element) => {
             if (enabled) {
-                this.connectChain(chain);
+                if (chain === null) {
+                    // Chain not yet created - create it now (after user interaction)
+                    this.createAndConnectChain(element);
+                } else {
+                    this.connectChain(chain);
+                }
             } else {
-                this.disconnectChain(chain);
+                if (chain !== null) {
+                    this.disconnectChain(chain);
+                }
             }
         });
     }
@@ -331,7 +355,9 @@ class DrumBuss {
 
             if (this.enabled) {
                 this.mediaElements.forEach((chain) => {
-                    this.updateChainParams(chain);
+                    if (chain !== null) {
+                        this.updateChainParams(chain);
+                    }
                 });
             }
         }
@@ -355,7 +381,9 @@ class DrumBuss {
                     Object.assign(this.params, message.params);
                     if (this.enabled) {
                         this.mediaElements.forEach((chain) => {
-                            this.updateChainParams(chain);
+                            if (chain !== null) {
+                                this.updateChainParams(chain);
+                            }
                         });
                     }
                     sendResponse({ success: true });
